@@ -8,11 +8,12 @@ public class mouseDrag : MonoBehaviour {
 
 	[HideInInspector]
 	public GameObject thePlayer;
-
+	
 	[HideInInspector]
 	public Rigidbody rb;
 
 	private bool isDragged;
+	private bool isMouse; // to check if the mouse cursor is over the gameobject or not to check when to show the hand
 
 	void Awake()
 	{
@@ -38,9 +39,17 @@ public class mouseDrag : MonoBehaviour {
 
 	void OnMouseUp()
 	{
-		isDragged = false;
+		isDragged = false;  // When the mouse is released
 	}
 
+	void OnMouseEnter()
+	{
+		isMouse = true;
+	}
+	void OnMouseExit()
+	{
+		isMouse = false;
+	}
 	void Update()
 	{
 		// Calculating the player position at every frame
@@ -55,6 +64,14 @@ public class mouseDrag : MonoBehaviour {
 		distance = Mathf.Sqrt (Mathf.Pow((playerX-objX),2)+Mathf.Pow((playerY-objY),2)+Mathf.Pow((playerZ-objZ),2));
 
 		rb.freezeRotation = isDragged;
-
+		/*
+		// Fixing the jumping of the player when the box moves under the player
+		if (isDragged) {
+			gameObject.GetComponent<BoxCollider> ().enabled = false;
+		} else if (!isDragged) {
+			gameObject.GetComponent<BoxCollider>().enabled=true;
+		}
+		*/
+		// The Show of Hand will be done on the player script by raycasting
 	}
 }
