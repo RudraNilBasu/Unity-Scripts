@@ -4,7 +4,7 @@ using System.Collections;
 public class mouseDrag : MonoBehaviour {
 
 	private float distance1=2;
-	private float distance;
+	private float distance; // minimum distance in which the player should be at to enable dragging
 
 	[HideInInspector]
 	public GameObject thePlayer;
@@ -24,15 +24,16 @@ public class mouseDrag : MonoBehaviour {
 
 	void OnMouseDrag()
 	{
-		isDragged = true;
-		thePlayer.GetComponent<Rigidbody> ().freezeRotation = true;
+		if (distance < 5) {
+			isDragged = true;
+			thePlayer.GetComponent<Rigidbody> ().freezeRotation = true;
 
-		Vector3 mousePosition = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, distance1);
-		Vector3 objPosition = Camera.main.ScreenToWorldPoint (mousePosition);
+			Vector3 mousePosition = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, distance1);
+			Vector3 objPosition = Camera.main.ScreenToWorldPoint (mousePosition);
 
-		transform.position = objPosition; // storing the position on the game Object's new position
+			transform.position = objPosition; // storing the position on the game Object's new position
 
-
+		}
 	}
 
 	void OnMouseUp()
