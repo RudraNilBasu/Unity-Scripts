@@ -8,3 +8,8 @@ A WIP script to drag a RigidBody using Mouse like Amnesia
 
 
 *Make sure that Game Object has a RigidBody Component attached to it
+
+
+###Bugs to Fix
+
+Object moves through other solid objects (NOTE: No spring component used)
