@@ -7,4 +7,4 @@ This c# script helps to fade smoothly between scenes with a black texture. This 
 Check out the tutorial from [Brackeys](https://www.youtube.com/watch?v=0HwZQt94uHQ)
 
 * Attach the script in any of the active Game Objects in the scene.
-* For Fading, call the ```BeginFade()``` function from any other external script, giving the direction of Fading (-1 for fading in, +1 for fading out)
+* For Fading, call the ```BeginFade()``` function from any other external script, giving the ```direction``` of Fading (-1 for fading in, +1 for fading out)
