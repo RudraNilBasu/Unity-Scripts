@@ -7,7 +7,7 @@ This script is derived from the [Brackeys](http://brackeys.com/) tutorial. This 
 For a detailed explanation of the working of the script, do check out [this tutorial by Brackeys](https://www.youtube.com/watch?v=HhFKtiRd0qI) explaining the working of the script
 
 For a quick note on making the audio play from another script - 
-* Create an instance of the ```AudioManager``` on the script from which we need to call the ```AudioManager.cs ```  script, For ex, 
+* Create an instance of the ```AudioManager``` on the script from which we need to call the ```AudioManager.cs ```  script, For example, 
 
 ``` private AudioManager audioManager;```
 
@@ -15,4 +15,5 @@ For a quick note on making the audio play from another script -
 
 ```audioManager= AudioManager.instance;```
 
-* Call the ```PlaySound()``` function from wherever we need to play the sound of the name ```<Name>``` ```audioManager.PlaySound("<Name>")```
+* Call the ```PlaySound()``` function from wherever we need to play the sound of the name ```<Name>```
+* ```audioManager.PlaySound("<Name>")```
