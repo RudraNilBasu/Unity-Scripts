@@ -16,4 +16,4 @@ For a quick note on making the audio play from another script -
 ```audioManager= AudioManager.instance;```
 
 * Call the ```PlaySound()``` function from wherever we need to play the sound of the name ```<Name>```
-* ```audioManager.PlaySound("<Name>")```
+  ```audioManager.PlaySound("<Name>")```
