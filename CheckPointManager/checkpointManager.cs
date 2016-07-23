@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class checkpointManager : MonoBehaviour {
 
-	int currentCheckpoint; // the current checkpoint we have crossed
+	//int currentCheckpoint; // the current checkpoint we have crossed
 	Vector3 playerPosition; // to store the player position
 	GameObject thePlayer; // reference to the player
 
@@ -24,68 +24,57 @@ public class checkpointManager : MonoBehaviour {
 
 
 	void Start () {
-		currentCheckpoint = 0;
+		//currentCheckpoint = 0;
 		thePlayer = GameObject.Find ("Player");
 		playerPosition = thePlayer.transform.position;
+
+
+		int i;
+		for (i = 0; i < barriers.Length; i++) {
+			isB[i]=barriers[i].GetComponent<BoxCollider>().enabled; // checking whether ith barrier is visible or not
+		}
+		for (i = 0; i < piecesObjs.Length; i++) {
+			isP [i] = piecesObjs [i].activeInHierarchy; // checking if ith broken piece is active in the scene or not
+			piecesPos [i] = piecesObjs [i].transform.localPosition; // storing the position of the broken pieces
+		}
 	}
 
 
 
 
-	// Update is called once per frame
-	public void save (int _checkPointIndex) {
-		currentCheckpoint = _checkPointIndex;
+	public void save () {
 		playerPosition = thePlayer.transform.position;
-		/*
-		isB1 = breaker1.activeInHierarchy;
-		isP1 = pieces.activeInHierarchy;
-		*/
+
 		int i;
-		//Debug.Log (barriers.Length);
 		for (i = 0; i < barriers.Length; i++) {
-			//isB [i] = barriers [i].activeInHierarchy;
-			//Debug.Log("i="+i);
-			//Debug.Log(barriers[i].GetComponent<BoxCollider>().enabled);
-			isB[i]=barriers[i].GetComponent<BoxCollider>().enabled;
+			isB[i]=barriers[i].GetComponent<BoxCollider>().enabled; // checking whether ith barrier is visible or not
 		}
-		//Debug.Log ("HURRRAAAYY"+isP[0]);
-		//Debug.Log (piecesObjs.Length+","+isP.Length+","+piecesPos.Length);
 		for (i = 0; i < piecesObjs.Length; i++) {
-			//Debug.Log("i="+i+"()"+piecesObjs [i].activeInHierarchy);
-			isP [i] = piecesObjs [i].activeInHierarchy;
-			piecesPos [i] = piecesObjs [i].transform.localPosition;
+			isP [i] = piecesObjs [i].activeInHierarchy; // checking if ith broken piece is active in the scene or not
+			piecesPos [i] = piecesObjs [i].transform.localPosition; // storing the position of the broken pieces
 		}
 	}
 
 	public void loadLastCheckPoint()
 	{
-		if (currentCheckpoint == 0) {
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
-		} else {
-			thePlayer.transform.position = playerPosition;
-			/*
-			breaker1.GetComponent<BoxCollider> ().enabled = isB1;
-			breaker1.GetComponent<MeshRenderer> ().enabled = isB1;
-			//breaker1.SetActive (isB1);
-			pieces.SetActive (isP1);
-			*/
-			int i;
-			for (i = 0; i < barriers.Length; i++) {
-				//isB [i] = barriers [i].activeInHierarchy;
-				barriers[i].GetComponent<BoxCollider>().enabled = isB[i];
-				barriers[i].GetComponent<MeshRenderer> ().enabled = isB[i];
+		
+		thePlayer.transform.position = playerPosition; // restoring the player position to the position when player touched the checkpoint
+		int i;
+		for (i = 0; i < barriers.Length; i++) {
+			// collider and mesh is enabled/disabled as per the values when it crossed the checkpoint
+			barriers[i].GetComponent<BoxCollider>().enabled = isB[i];
+			barriers[i].GetComponent<MeshRenderer> ().enabled = isB[i];
 
-				if (isB [i]) {
-					//Debug.Log (barriers [i].transform.GetChild (0).gameObject.name);
-					barriers [i].transform.GetChild (0).gameObject.SetActive (false);
-				} else {
-					barriers [i].transform.GetChild (0).gameObject.SetActive (true);
-				}
+			if (isB [i]) {
+				// if the ith barrier is visible, then deactivate it's broken pieces
+				barriers [i].transform.GetChild (0).gameObject.SetActive (false);
+			} else {
+				barriers [i].transform.GetChild (0).gameObject.SetActive (true);
 			}
-			for (i = 0; i < piecesObjs.Length; i++) {
-				//piecesObjs [i].SetActive(isP[i]);
-				piecesObjs [i].transform.localPosition = piecesPos [i];
-			}
+		}
+		for (i = 0; i < piecesObjs.Length; i++) {
+			// set the position of the broken pieces to the position when the player crossed the checkpoint
+			piecesObjs [i].transform.localPosition = piecesPos [i];
 		}
 	}
 }
